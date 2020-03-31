@@ -1,0 +1,21 @@
+{
+  "name": "w4-todo-jdmr",
+  "version": "1.0.0",
+  "description": "Moris Rafol and James Daniels to-do list app with TDD",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape ./tests/test.js | tap-spec",
+    "nyc": "nyc --reporter=lcov --reporter=text npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//WebAhead5/w4-todo-JDMR.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nyc": "^15.0.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.13.2"
+  }
+}
