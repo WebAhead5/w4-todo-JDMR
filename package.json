@@ -4,7 +4,7 @@
   "description": "Moris Rafol and James Daniels to-do list app with TDD",
   "main": "index.js",
   "scripts": {
-    "test": "tape ./tests/test.js | tap-spec",
+    "test": "tape ./tests/**/*.js | tap-spec",
     "nyc": "nyc --reporter=lcov --reporter=text npm test"
   },
   "repository": {
