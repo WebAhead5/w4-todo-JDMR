@@ -70,34 +70,67 @@ test('add task to the todo list NULL',function(t){
 });
 
 //delete-------------------------------------------------------------------------
-test('delete task0 from todo list [task0]',function(t){
+test('delete task0 from todo list of 1 [task0]',function(t){
+  let initialArr = [task0]
 
+  let actual = logic.deleteTodo(initialArr, 0);
+
+  t.equal(initialArr.length-1, actual.length, 'deleting task0 returns an empty array')
+  t.end();
+});
+
+test('delete task0 from todo list of 2 [task0,task1]',function(t){
+  let initialArr = [task0, task1]
+
+  let actual = logic.deleteTodo(initialArr, 1)
+
+  t.equal(initialArr[0], actual[0], 'deleting task1 returns an array with only task0')
   t.end();
 });
 test('delete task0 from todo list [task0,task1]',function(t){
+  let initialArr = [task0, task1]
 
-  t.end();
-});
-test('delete task1 from todo list [task0,task1]',function(t){
+  let actual = logic.deleteTodo(initialArr, 0)
 
+  t.equal(initialArr[1], actual[0], 'deleting task1 returns an array with only task0')
   t.end();
 });
 test('delete task0 from todo list [task2]',function(t){
+  let initialArr = [task2]
 
+  let actual = logic.deleteTodo(initialArr, 0)
+
+  t.equal(JSON.stringify(initialArr), JSON.stringify(actual), 'deleting non-existant task has no effect')
   t.end();
+
 });
 test('delete NULL from todo list [task0,task1]',function(t){
+  let initialArr = [task0, task1]
 
+  let actual = logic.deleteTodo(initialArr, null)
+
+  t.equal(JSON.stringify(initialArr), JSON.stringify(actual), "delete NULL from the todo list has no effect")
   t.end();
 });
 test('delete task0 from todo list NULL',function(t){
 
+  let result = logic.deleteTodo(null,0);
+
+  t.deepEqual([], result, "removing an object from null should return null")
   t.end();
 });
 
 //mark---------------------------------------------------------------------------
 test('mark task0 in todo list [task0]',function(t){
+  todos = [task0,task1,task2]
+  idToMark = 0
+  // initially they were true
 
+  result = logic.markTodo(todos, idToMark)
+
+  console.log(todos[0].done, result[0].true)
+
+  t.equals(false, result[0].done, "done should return true if it was false" )
   t.end();
 });
 test('mark task0 in todo list [task0,task1]',function(t){
@@ -151,47 +184,31 @@ test('sort todo list by description',function(t){
 
   t.end();
 });
-test('sort NULL todo list',function(t){
-  let before;
-  let after = [];
+// test('sort NULL todo list',function(t){
+//   let before;
+//   let after = [];
 
-  let sortFunc = (a,b)=> a.id - b.id;
+//   let sortFunc = (a,b)=> a.id - b.id;
 
-  let actual = logic.sortTodos(before,sortFunc);
+//   let actual = logic.sortTodos(before,sortFunc);
 
-  t.looseEqual(before,null);
-  t.deepEqual(actual.length,after.length);
+//   t.looseEqual(before,null);
+//   t.deepEqual(actual.length,after.length);
 
-  t.end();
-});
-test('sort todo list by NULL',function(t){
-  let before = [task0, task1];
-  let after = [task0, task1];
+//   t.end();
+// });
+// test('sort todo list by NULL',function(t){
+//   let before = [task0, task1];
+//   let after = [task0, task1];
 
-  let sortFunc = null;
-  let actual = logic.sortTodos(before,sortFunc);
+//   let sortFunc = null;
+//   let actual = logic.sortTodos(before,sortFunc);
 
-  t.deepEqual(before[0],task1);
-  t.deepEqual(before[1],task0);
+//   t.deepEqual(before[0],task1);
+//   t.deepEqual(before[1],task0);
 
-  t.deepEqual(after[0],actual[0]);
-  t.deepEqual(after[1],actual[1]);
-  t.true(compareArrays(arr1,arr2));
+//   t.deepEqual(after[0],actual[0]);
+//   t.deepEqual(after[1],actual[1]);
 
-  t.end();
-});
-
-
-
-function compareArrays(arr1,arr2) {
-
-  if(arr1.length !== arr2.length)
-    return false;
-
-  for (let i = 0; i < arr1; i++)
-  {
-    if(arr1[i] !== arr2[i])
-      return false;
-  }
-  return true;
-}
+//   t.end();
+// });
