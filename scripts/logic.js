@@ -88,6 +88,24 @@ var todoFunctions = {
     cloneTodo.sort(sortFunction);
     return cloneTodo;
   },
+
+
+
+  editTask: function (todos,id,funcToApply) {
+
+    let arrClone = todoFunctions.cloneArrayOfObjects(todos);
+
+
+    if(arrClone.some(x=>x.id === id))
+    {
+      let index = arrClone.findIndex(x=>x.id === id);
+      funcToApply(arrClone[index] );
+    }
+
+
+    return arrClone;
+  }
+
 };
 
 
