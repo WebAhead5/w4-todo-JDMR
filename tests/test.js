@@ -176,8 +176,22 @@ test('sort todo list by NULL',function(t){
 
   t.deepEqual(after[0],actual[0]);
   t.deepEqual(after[1],actual[1]);
+  t.true(compareArrays(arr1,arr2));
 
   t.end();
 });
 
 
+
+function compareArrays(arr1,arr2) {
+
+  if(arr1.length !== arr2.length)
+    return false;
+
+  for (let i = 0; i < arr1; i++)
+  {
+    if(arr1[i] !== arr2[i])
+      return false;
+  }
+  return true;
+}
