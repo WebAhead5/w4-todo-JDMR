@@ -58,17 +58,24 @@ var todoFunctions = {
     // in the new todo array, all elements will remain unchanged except the one with id: idToMark
     // this element will have its done value toggled
     // hint: array.map
+    if(!todos)
+      return [];
 
-    // return todoFunctions.cloneArrayOfObjects(todos).map(x=>{
-    //   if(x.id === idToMark){
-    //     x.done = !x.done
-    //   }
-    //   else return x;
-    // }
+    return todos.map((x)=>{
+      let retVal = x;
+      if(retVal.id === idToMark) {
+        retVal = {...x};
+        retVal.done = !retVal.done;
+      }
+       return retVal;
+    });
 
-    let clonedArr = todoFunctions.cloneArrayOfObjects(todos)
-    clonedArr[0].done = false;
-    return clonedArr;
+    // let clonedArr = todoFunctions.cloneArrayOfObjects(todos);
+    // let index = clonedArr.findIndex(e=>e.id === idToMark);
+    // if(index !== -1)
+    //   clonedArr[index].done = !clonedArr[index].done;
+    //
+    // return clonedArr;
 
   },
 
@@ -93,10 +100,15 @@ var todoFunctions = {
 
   editTask: function (todos,id,funcToApply) {
 
-    let arrClone = todoFunctions.cloneArrayOfObjects(todos);
+    let arrClone;
+
+    if(!todos)
+      arrClone=[];
+
+    else arrClone = todoFunctions.cloneArrayOfObjects(todos);
 
 
-    if(arrClone.some(x=>x.id === id))
+    if(funcToApply && arrClone.some(x=>x.id === id))
     {
       let index = arrClone.findIndex(x=>x.id === id);
       funcToApply(arrClone[index] );

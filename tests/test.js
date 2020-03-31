@@ -122,31 +122,52 @@ test('delete task0 from todo list NULL',function(t){
 
 //mark---------------------------------------------------------------------------
 test('mark task0 in todo list [task0]',function(t){
-  todos = [task0,task1,task2]
-  idToMark = 0
+  let todos = [task0];
+  let idToMark = 0;
   // initially they were true
 
-  result = logic.markTodo(todos, idToMark)
+  let result = logic.markTodo(todos, idToMark);
 
-  console.log(todos[0].done, result[0].true)
-
-  t.equals(false, result[0].done, "done should return true if it was false" )
+  t.equals(todos[idToMark].done, !result[idToMark].done, "done should return true if it was false" )
   t.end();
 });
-test('mark task0 in todo list [task0,task1]',function(t){
+test('mark task1 in todo list [task0,task1]',function(t){
+  let todos = [task0,task1];
+  let idToMark = 1;
+  // initially they were true
 
+  let result = logic.markTodo(todos, idToMark);
+
+  t.equals(todos[idToMark].done, !result[idToMark].done, "done should return true if it was false" )
   t.end();
 });
 test('mark task0 in todo list [task2]',function(t){
+  let todos = [task2];
+  let idToMark = 0;
+  // initially they were true
 
+  let result = logic.markTodo(todos, idToMark);
+
+  t.equals(todos[0].done, result[0].done, "done should return true if it was false" )
   t.end();
 });
-test('mark NULL in todo list [task0,task1]',function(t){
+test('mark NULL in todo list [task0]',function(t){
+  let todos = [task0];
+  let idToMark;
+  // initially they were true
 
+  let result = logic.markTodo(todos, idToMark);
+
+  t.equals(todos[0].done, result[0].done, "done should return true if it was false" )
   t.end();
 });
 test('mark task0 in todo list NULL',function(t){
+  let todos;
+  let idToMark = 0;
 
+  let result = logic.markTodo(todos, idToMark);
+
+  t.equals(0, result.length, "done should return true if it was false" )
   t.end();
 });
 
