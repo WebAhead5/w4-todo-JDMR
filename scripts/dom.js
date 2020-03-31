@@ -12,14 +12,14 @@
     { id: -1, description: 'third todo',done: false },
   ]; // this is our initial todoList
 
-  // This function takes a todo, it returns the DOM node representing that todo
+  // This function takes a to do, it returns the DOM node representing that todo
   let createTodoNode = function(todo) {
 
 
     //----------------------------------------------------------------------------
     let todoNode = document.createElement('li');
     todoNode.classList.add("listItem");
-    todoNode.draggable = true;
+    todoNode.setAttribute("draggable", "true");
     // you will need to use addEventListener
     // add classes for css
 
@@ -74,18 +74,16 @@
 
 
 
-  // bind create todo form
+  // bind create to do form
   if (addTodoForm) {
     addTodoForm.addEventListener('submit', function(event) {
-      // https://developer.mozilla.org/en-US/docs/Web/Events/submit
-      // what does event.preventDefault do?
-      // what is inside event.target?
+      event.preventDefault();
 
-      var description = '?'; // event.target ....
-
-      // hint: todoFunctions.addTodo
-      var newState = []; // ?? change this!
+      let desTextFormElement = document.getElementsByName("description")[0];
+      let newObj = {id: todoFunctions.generateId(), description: desTextFormElement.value, done:false};
+      let newState = todoFunctions.addTodo(state,newObj);
       update(newState);
+
     });
   }
 
