@@ -30,12 +30,15 @@
     markedCheckboxField.type = "checkbox";
     markedCheckboxField.classList.add("listItemCheckBoxField");
     markedCheckboxField.checked = todo.done;
+    markedCheckboxField.setAttribute('aria-label',"delete todo item button")
+
     markedCheckboxField.onchange = () => {
       let newState = todoFunctions.markTodo(state, todo.id);
       //sortMe();
       newState = sortMe(newState);
       update(newState);
     };
+
 
     todoNode.appendChild(markedCheckboxField);
     //todo add onClock behaviour
@@ -46,6 +49,9 @@
     descTextField.type = "text";
     descTextField.classList.add("listItemTextField");
     descTextField.value = todo.description;
+
+    descTextField.setAttribute('aria-label',"todo item description text field")
+
 
     descTextField.onchange = () => {
       let newState = todoFunctions.editTask(state, todo.id, obj => {
@@ -81,6 +87,8 @@
 
     deleteButtonNode.classList.add("listItemDeleteButton");
     todoNode.appendChild(deleteButtonNode);
+
+    deleteButtonNode.setAttribute('aria-label',"delete todo item button")
 
 
     //----------------------------------------------------------------------------

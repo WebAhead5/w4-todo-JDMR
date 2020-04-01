@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>tdd todo</title>
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="tests/testing-outlines.css">
@@ -12,7 +12,8 @@
   <body>
     <div id="bodyElementsContainer">
       <form id="add-todo">
-        <input type="text" name="description" value="" placeholder="Add task..." autocomplete="off">
+        <label for="new-todo"></label>
+        <input type="text" id="new-todo" name="description" title="new to-do" for="new todo" value="" placeholder="Add task..." autocomplete="off">
         <input type="submit" name="add" value="">
         <input type="button" name="undo" value="">
 
