@@ -116,6 +116,7 @@
       newTodo.id = todoFunctions.generateId();
       newTodo.description = document.querySelector('[name="description"]').value;
       newTodo.done = false;
+      document.querySelector('[name="description"]').value = "";
 
       let newState = todoFunctions.addTodo(state, newTodo)
       // hint: todoFunctions.addTodo
