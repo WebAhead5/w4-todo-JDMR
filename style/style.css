@@ -8,7 +8,6 @@
     --font-color: #E1E1E2;
     --icons-color:#E1E1E2;
 }
-
 body{
     display: flex;
     align-items: center;
@@ -22,6 +21,7 @@ body{
     height: 100%;
     width:100%;
 }
+
 
 #bodyElementsContainer{
     min-width: 300px;
@@ -60,16 +60,31 @@ ul{
 
 }
 
-.listItemCheckBoxField{
-    width: var(--listItem-elements-height);
-    height: var(--listItem-elements-height);
 
+.listItemCheckBoxField{
+    min-width: var(--listItem-elements-height);
+    min-height: var(--listItem-elements-height);
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 1px solid #cacece;
+    border-radius: 10px;
+}
+.listItemCheckBoxField:checked{
+    background: rgba(255, 255, 255, .1)
+    url("../res/icons/icon-tick.svg")
+    no-repeat
+    calc((var(--listItem-elements-height) - 20px) / 2);
+
+    background-size: 20px 20px;
+}
+.listItemCheckBoxField:checked + .listItemTextField{
+    text-decoration: line-through;
 }
 
 .listItemDeleteButton{
-    width: var(--listItem-elements-height);
+    min-width: var(--listItem-elements-height);
 
-    height: var(--listItem-elements-height);
+    min-height: var(--listItem-elements-height);
 
     margin-left: 5px;
 
@@ -88,16 +103,15 @@ ul{
     display: block;
     opacity: 1;
 }
-
-
 .listItemTextField{
     width: 100%;
     height: var(--listItem-elements-height);
     padding: 0 calc(var(--listItem-elements-height) - 5px) 0 5px;
+
     color: var(--font-color);
-
+    background-color: transparent;
+    border: 0;
 }
-
 
 
 
@@ -114,9 +128,8 @@ ul{
     width: 300px;
 }
 .draggedOver{
-    border-style: dotted;
+    border: 2px dotted red;
 }
-
 .allListItemsWhileDragging *{
     pointer-events: none;
 }
