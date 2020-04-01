@@ -114,7 +114,6 @@ var todoFunctions = {
 
     return arrClone;
   },
-
   swapTasks: function (todos, id1, id2) {
     if (!todos)
       return [];
@@ -130,7 +129,25 @@ var todoFunctions = {
     }
 
     return newArr;
-  }
+  },
+  unshiftTodo: function (todos, newTodo) {
+    // should leave the input argument todos unchanged (you can use cloneArrayOfObjects)
+    // returns a new array, it should contain todos with the newTodo added to the end.
+    // add an id to the newTodo. You can use the generateId function to create an id.
+    // hint: array.concat
+    if (!todos) {
+      console.warn("an undefined todos-list was provided ");
+      return [newTodo];
+    }
+
+    if (!newTodo)
+      return todoFunctions.cloneArrayOfObjects(todos);
+
+    return [newTodo].concat(todoFunctions.cloneArrayOfObjects(todos));
+    // return [...todos,newTodo]
+
+  },
+
 };
 
 
