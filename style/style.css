@@ -61,7 +61,8 @@ ul{
 }
 
 .listItemDeleteButton{
-    width: var(--listItem-elements-height);;
+    width: var(--listItem-elements-height);
+
     height: var(--listItem-elements-height);
 
     margin-left: 5px;
@@ -90,3 +91,25 @@ ul{
 
 }
 
+
+
+
+[draggable] {
+    will-change: transform;
+    cursor: move;
+    transition: all 200ms;
+    user-select: none;
+    position: relative;
+}
+.dragged{
+    border-color: black;
+    opacity: 1;
+    width: 300px;
+}
+.draggedOver{
+    border-style: dotted;
+}
+
+.allListItemsWhileDragging *{
+    pointer-events: none;
+}
