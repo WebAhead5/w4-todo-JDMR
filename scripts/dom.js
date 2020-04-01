@@ -29,12 +29,9 @@
     markedCheckboxField.type ="checkbox";
     markedCheckboxField.classList.add("listItemCheckBoxField");
     markedCheckboxField.checked = todo.done;
-    markedCheckboxField.onchange = ()=>     {
-      let newState = todoFunctions.editTask(state,todo.id,obj=>{
-        obj.done = !obj.done;
-      });
+    markedCheckboxField.onchange = ()=> {
+      let newState = todoFunctions.markTodo(state, todo.id);
       update(newState);
-
     };
 
     todoNode.appendChild(markedCheckboxField);
@@ -71,7 +68,6 @@
 
     return todoNode;
   };
-
 
 
   // bind create todo form
