@@ -55,11 +55,9 @@
     descTextField.onkeydown = (event) => {
 
       if (event.keyCode == 8 && descTextField.value === "") {
-        console.log("backspace happening")
-        var newState = todoFunctions.deleteTodo(state, todo.id);
 
-        console.log("newstate: ",newState)
-        
+        descTextField.onchange = null;
+        var newState = todoFunctions.deleteTodo(state, todo.id);
         update(newState);
     }
 
