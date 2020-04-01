@@ -19,7 +19,7 @@
     //----------------------------------------------------------------------------
     let todoNode = document.createElement('li');
     todoNode.classList.add("listItem");
-    todoNode.draggable = true;
+    enableDragAndDrop(todo,todoNode);
     // you will need to use addEventListener
     // add classes for css
 
@@ -113,20 +113,67 @@
   if (container) renderState(state);
 
   //------------------------------------------------------
-  /* let addTodoNode = function (){
-      let form = document.createElement("form");
-  
-      let TextField = document.createElement("input");
-      TextField.placeholder ="Add task...";
-      TextField.classList.add("listItemTextField");
-      TextField.oninput = ()=>
-      {
-  
-      };
-    var todoListNode = document.createElement('ul');
-    todoListNode.appendChild(descTextField);
-  
-  }*/
+  function enableDragAndDrop(todo,todoNode) {
+    todoNode.draggable = true;
+    todoNode.setAttribute("data-task-id", todo.id);
+
+
+    todoNode.ondragstart= (event)=>{
+      //store the dragged element id
+      container.setAttribute("data-draggedItem",todo.id);
+      console.log("drag start");
+
+      //add a class to all the list items - to apply "pointer-events: none" for all the children
+      Array.from(document.querySelectorAll(".listItem"))
+          .forEach(e=>{
+            if(!e.classList.contains("allListItemsWhileDragging"))
+              e.classList.add("allListItemsWhileDragging")
+          });
+    };
+
+    todoNode.ondragover = (event)=> {
+      event.preventDefault();
+
+      //add the class "over" to the elements underneath the dragged item
+      with (event.target)
+        if (container.hasAttribute("data-draggedItem") && hasAttribute("data-task-id"))
+          if (container.getAttribute("data-draggedItem") !== getAttribute("data-task-id"))
+            if (!classList.contains("draggedOver"))
+              classList.add("draggedOver")
+    };
+
+    todoNode.ondragleave =(event)=> {
+
+      //remove the "draggedOver" class from all the elements that are no longer underneath the dragged item
+      with (event.target.classList)
+            if (contains("draggedOver"))
+              remove("draggedOver")
+    };
+    todoNode.ondrop= (event)=>{
+      //remove the "draggedOver" class from dropped on element
+      event.target.classList.remove("draggedOver");
+      console.log("dropped");
+
+
+      let id1 = parseInt(container.getAttribute("data-draggedItem"));
+      let id2 = parseInt(event.target.getAttribute("data-task-id"));
+      let newState = todoFunctions.swapTasks(state,id1,  id2);
+      update(newState);
+    };
+
+    todoNode.ondragend =(event)=> {
+      event.preventDefault();
+      console.log("drag end");
+
+      //remove the stored dragged element id
+      container.removeAttribute("data-draggedItem");
+
+      //remove a class from all the list items - that applies "pointer-events: none" for all their children
+      Array.from(document.querySelectorAll(".listItem"))
+          .forEach(e=>e.classList.remove("allListItemsWhileDragging"));
+    };
+
+  }
   //------------------------------------------------------
 
 })();
