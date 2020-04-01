@@ -31,8 +31,8 @@ body{
 
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.6), 0 4px 8px 3px rgba(0,0,0,0.302);
     border: 1px solid var(--element-contrast-color);
-    padding: 5px 5px 30px 5px;
-    box-sizing: content-box;
+    padding: 40px 5px 5px 5px;
+    box-sizing: border-box;
 
     position: relative;
     overflow-y: auto;
@@ -108,7 +108,7 @@ ul{
     transition: opacity .3s;
 
 }
-.listItem:hover .listItemDeleteButton{
+.listItem:hover .listItemDeleteButton , .listItemDeleteButton:focus{
     display: block;
     opacity: 1;
 }
@@ -150,11 +150,13 @@ ul{
 }
 /*-------------------------------------------------------------------------*/
 #add-todo{
-    position: sticky;
-    bottom: calc(-1 * var(--listItem-elements-height));
+    position: absolute;
+    top: 5px;
     left: 5px;
     right: 5px;
 
+    min-height: 46px;
+    max-height: var(--listItem-elements-height);
 
     display: flex;
     justify-content: space-between;
@@ -165,7 +167,15 @@ ul{
     border: 1px solid  var(--element-contrast-color);
 
 }
-#add-todo img{
+#add-todo input[type="submit"]{
+    background:
+    url("../res/icons/icon-plus.svg")
+    no-repeat
+    calc((var(--listItem-elements-height) - 30px) / 2);
+    background-size: 30px 30px;
+
+    border: 0;
+    content: "";
     min-width: var(--listItem-elements-height);
     min-height: var(--listItem-elements-height);
     max-width: var(--listItem-elements-height);
@@ -173,5 +183,14 @@ ul{
 }
 #add-todo input[type="text"]{
     width: 100%;
+    background-color: transparent;
+    outline: none;
+    border:0;
+    color: var(--font-color);
+    padding: 0 10px;
+    box-sizing: content-box;
+    place
 }
-
+#add-todo input[type="text"]:focus{
+    outline: none;
+}

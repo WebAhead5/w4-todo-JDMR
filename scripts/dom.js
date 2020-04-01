@@ -12,17 +12,9 @@
     { id: -1, description: 'third todo', done: false },
   ]; // this is our initial todoList
 
+
   let arrayOfStates = [state];
-
-  window.onkeydown = (event) => {
-    if (event.keyCode === 90){
-      undoLastStep()
-    }
-
-  };
-
   var disableUndo = false;
-
   let undoLastStep = function(){
       if(arrayOfStates.length === 1 || disableUndo) return;
       
@@ -30,6 +22,11 @@
       state = arrayOfStates[arrayOfStates.length - 1]
       renderState(state)
   }
+  window.onkeydown = (event) => {
+    if (event.keyCode === 90)
+      undoLastStep();
+  };
+
 
   // This function takes a todo, it returns the DOM node representing that todo
   let createTodoNode = function (todo) {
@@ -118,7 +115,8 @@
       newTodo.done = false;
       document.querySelector('[name="description"]').value = "";
 
-      let newState = todoFunctions.addTodo(state, newTodo)
+      let newState = todoFunctions.unshiftTodo(state, newTodo);
+
       // hint: todoFunctions.addTodo
       update(newState);
     });
