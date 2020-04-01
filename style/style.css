@@ -3,6 +3,10 @@
 :root{
     --listItem-elements-height: 30px;
 
+    --page-background-olor: #202124;
+    --element-contrast-color: #5f6368;
+    --font-color: #E1E1E2;
+    --icons-color:#E1E1E2;
 }
 
 body{
@@ -10,7 +14,7 @@ body{
     align-items: center;
     justify-content: center;
 
-    background-color: #FCE1E5;
+    background-color: var(--page-background-olor);
 
     box-sizing: content-box;
     position: absolute;
@@ -24,10 +28,12 @@ body{
     width: 80%;
     height: 80%;
     border-radius: 20px;
-    box-shadow: 3px 3px 0 rgba(0,0,0,.5);
-    border: 2px solid black;
+    /*box-shadow: 3px 3px 3px  var(--element-contrast-color);;*/
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.6), 0 4px 8px 3px rgba(0,0,0,0.302);
+    border: 1px solid var(--element-contrast-color);
     padding: 5px;
     box-sizing: content-box;
+
 }
 ul{
     width: 100%;
@@ -36,8 +42,8 @@ ul{
 }
 .listItem {
 
-    border: solid 5px yellow;
     border-radius: 20px;
+    border: 1px solid  var(--element-contrast-color);
     list-style: none;
 
     display: flex;
@@ -88,6 +94,7 @@ ul{
     width: 100%;
     height: var(--listItem-elements-height);
     padding: 0 calc(var(--listItem-elements-height) - 5px) 0 5px;
+    color: var(--font-color);
 
 }
 
