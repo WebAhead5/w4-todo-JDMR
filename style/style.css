@@ -5,32 +5,92 @@
 
 }
 
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #FCE1E5;
+
+    box-sizing: content-box;
+    position: absolute;
+    margin: 0;
+    height: 100%;
+    width:100%;
+}
+
+#bodyElementsContainer{
+    min-width: 300px;
+    width: 80%;
+    height: 80%;
+    border-radius: 20px;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.5);
+    border: 2px solid black;
+    padding: 5px;
+    box-sizing: content-box;
+}
+ul{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
 .listItem {
+
     border: solid 5px yellow;
+    border-radius: 20px;
     list-style: none;
+
     display: flex;
     align-items: center;
     justify-content: space-between ;
-    min-width: 500px;
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+    margin:  5px 0;
+    padding: 5px;
+    box-sizing: border-box;
+
 
 }
-
 
 .listItemCheckBoxField{
     width: var(--listItem-elements-height);
     height: var(--listItem-elements-height);
+
 }
+
 .listItemDeleteButton{
-     width: var(--listItem-elements-height);;
+    width: var(--listItem-elements-height);
+
     height: var(--listItem-elements-height);
-    justify-self: flex-end;
+
+    margin-left: 5px;
+
+    background-image: url("../res/icons/icon-bin.svg");
+    background-color: unset;
+    border: 0;
+    cursor: pointer;
+
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    transition: opacity .3s;
+
 }
+.listItem:hover .listItemDeleteButton{
+    display: block;
+    opacity: 1;
+}
+
+
 .listItemTextField{
     width: 100%;
     height: var(--listItem-elements-height);
-    padding: 0 5px;
+    padding: 0 calc(var(--listItem-elements-height) - 5px) 0 5px;
 
 }
+
 
 
 
