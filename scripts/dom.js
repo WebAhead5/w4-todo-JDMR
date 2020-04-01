@@ -19,7 +19,7 @@
     //----------------------------------------------------------------------------
     let todoNode = document.createElement('li');
     todoNode.classList.add("listItem");
-    enableDragAndDrop(todo,todoNode);
+    enableDragAndDrop(todo, todoNode);
     // you will need to use addEventListener
     // add classes for css
 
@@ -29,7 +29,7 @@
     markedCheckboxField.type = "checkbox";
     markedCheckboxField.classList.add("listItemCheckBoxField");
     markedCheckboxField.checked = todo.done;
-    markedCheckboxField.onchange = ()=> {
+    markedCheckboxField.onchange = () => {
       let newState = todoFunctions.markTodo(state, todo.id);
       update(newState);
     };
@@ -43,11 +43,25 @@
     descTextField.type = "text";
     descTextField.classList.add("listItemTextField");
     descTextField.value = todo.description;
+
     descTextField.onchange = () => {
       let newState = todoFunctions.editTask(state, todo.id, obj => {
         obj.description = descTextField.value;
       });
       update(newState);
+    }
+
+
+    descTextField.onkeydown = (event) => {
+
+      if (event.keyCode == 8 && descTextField.value === "") {
+        console.log("backspace happening")
+        var newState = todoFunctions.deleteTodo(state, todo.id);
+
+        console.log("newstate: ",newState)
+        
+        update(newState);
+    }
 
     };
     todoNode.appendChild(descTextField);
@@ -55,10 +69,12 @@
 
     // this adds the delete button------------------------------------------------
     let deleteButtonNode = document.createElement('button');
+
     deleteButtonNode.addEventListener('click', function (event) {
       var newState = todoFunctions.deleteTodo(state, todo.id);
       update(newState);
     });
+
     deleteButtonNode.classList.add("listItemDeleteButton");
     todoNode.appendChild(deleteButtonNode);
 
@@ -109,43 +125,43 @@
   if (container) renderState(state);
 
   //------------------------------------------------------
-  function enableDragAndDrop(todo,todoNode) {
+  function enableDragAndDrop(todo, todoNode) {
     todoNode.draggable = true;
     todoNode.setAttribute("data-task-id", todo.id);
 
 
-    todoNode.ondragstart= (event)=>{
+    todoNode.ondragstart = (event) => {
       //store the dragged element id
-      container.setAttribute("data-draggedItem",todo.id);
+      container.setAttribute("data-draggedItem", todo.id);
       console.log("drag start");
 
       //add a class to all the list items - to apply "pointer-events: none" for all the children
       Array.from(document.querySelectorAll(".listItem"))
-          .forEach(e=>{
-            if(!e.classList.contains("allListItemsWhileDragging"))
-              e.classList.add("allListItemsWhileDragging")
-          });
+        .forEach(e => {
+          if (!e.classList.contains("allListItemsWhileDragging"))
+            e.classList.add("allListItemsWhileDragging")
+        });
     };
 
-    todoNode.ondragover = (event)=> {
+    todoNode.ondragover = (event) => {
       event.preventDefault();
 
       //add the class "over" to the elements underneath the dragged item
       with (event.target)
-        if (container.hasAttribute("data-draggedItem") && hasAttribute("data-task-id"))
-          if (container.getAttribute("data-draggedItem") !== getAttribute("data-task-id"))
-            if (!classList.contains("draggedOver"))
-              classList.add("draggedOver")
+      if (container.hasAttribute("data-draggedItem") && hasAttribute("data-task-id"))
+        if (container.getAttribute("data-draggedItem") !== getAttribute("data-task-id"))
+          if (!classList.contains("draggedOver"))
+            classList.add("draggedOver")
     };
 
-    todoNode.ondragleave =(event)=> {
+    todoNode.ondragleave = (event) => {
 
       //remove the "draggedOver" class from all the elements that are no longer underneath the dragged item
       with (event.target.classList)
-            if (contains("draggedOver"))
-              remove("draggedOver")
+      if (contains("draggedOver"))
+        remove("draggedOver")
     };
-    todoNode.ondrop= (event)=>{
+    todoNode.ondrop = (event) => {
       //remove the "draggedOver" class from dropped on element
       event.target.classList.remove("draggedOver");
       console.log("dropped");
@@ -153,11 +169,11 @@
 
       let id1 = parseInt(container.getAttribute("data-draggedItem"));
       let id2 = parseInt(event.target.getAttribute("data-task-id"));
-      let newState = todoFunctions.swapTasks(state,id1,  id2);
+      let newState = todoFunctions.swapTasks(state, id1, id2);
       update(newState);
     };
 
-    todoNode.ondragend =(event)=> {
+    todoNode.ondragend = (event) => {
       event.preventDefault();
       console.log("drag end");
 
@@ -166,7 +182,7 @@
 
       //remove a class from all the list items - that applies "pointer-events: none" for all their children
       Array.from(document.querySelectorAll(".listItem"))
-          .forEach(e=>e.classList.remove("allListItemsWhileDragging"));
+        .forEach(e => e.classList.remove("allListItemsWhileDragging"));
     };
 
   }
