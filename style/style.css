@@ -28,17 +28,21 @@ body{
     width: 80%;
     height: 80%;
     border-radius: 20px;
-    /*box-shadow: 3px 3px 3px  var(--element-contrast-color);;*/
+
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.6), 0 4px 8px 3px rgba(0,0,0,0.302);
     border: 1px solid var(--element-contrast-color);
-    padding: 5px;
+    padding: 5px 5px 30px 5px;
     box-sizing: content-box;
+
+    position: relative;
+    overflow-y: auto;
 
 }
 ul{
     width: 100%;
     height: 100%;
     padding: 0;
+
 }
 .listItem {
 
@@ -60,10 +64,12 @@ ul{
 
 }
 
-
+/*-------------------------------------------------------------------------*/
 .listItemCheckBoxField{
     min-width: var(--listItem-elements-height);
     min-height: var(--listItem-elements-height);
+    max-width: var(--listItem-elements-height);
+    max-height: var(--listItem-elements-height);
     -webkit-appearance: none;
     background-color: transparent;
     border: 1px solid #cacece;
@@ -85,8 +91,9 @@ ul{
 
 .listItemDeleteButton{
     min-width: var(--listItem-elements-height);
-
     min-height: var(--listItem-elements-height);
+    max-width: var(--listItem-elements-height);
+    max-height: var(--listItem-elements-height);
 
     margin-left: 5px;
 
@@ -122,8 +129,7 @@ ul{
 .listItemTextField:focus + .listItemDeleteButton {
     opacity: 1;
 }
-
-
+/*-------------------------------------------------------------------------*/
 [draggable] {
     will-change: transform;
     cursor: move;
@@ -137,8 +143,35 @@ ul{
     width: 300px;
 }
 .draggedOver{
-    border: 2px dotted red;
+    border: 2px dotted greenyellow;
 }
 .allListItemsWhileDragging *{
     pointer-events: none;
 }
+/*-------------------------------------------------------------------------*/
+#add-todo{
+    position: sticky;
+    bottom: calc(-1 * var(--listItem-elements-height));
+    left: 5px;
+    right: 5px;
+
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: 1px solid  var(--element-contrast-color);
+
+}
+#add-todo img{
+    min-width: var(--listItem-elements-height);
+    min-height: var(--listItem-elements-height);
+    max-width: var(--listItem-elements-height);
+    max-height: var(--listItem-elements-height);
+}
+#add-todo input[type="text"]{
+    width: 100%;
+}
+
