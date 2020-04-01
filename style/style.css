@@ -1,13 +1,25 @@
-
+/*-------------------------------------------------------------------------*/
 
 :root{
     --listItem-elements-height: 30px;
 
-    --page-background-olor: #202124;
-    --element-contrast-color: #5f6368;
+    --page-background-olor: #61646a;
+    --container-background-color:#202124;
+    --element-border-color: #5f6368;
     --font-color: #E1E1E2;
-    --icons-color:#E1E1E2;
 }
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 4px lightgreen;
+
+}
+::-webkit-scrollbar {
+    /*display: none;*/
+    width: 10px;
+
+}
+
+
 body{
     display: flex;
     align-items: center;
@@ -22,20 +34,26 @@ body{
     width:100%;
 }
 
-
+/*-------------------------------------------------------------------------*/
 #bodyElementsContainer{
     min-width: 300px;
     width: 80%;
     height: 80%;
     border-radius: 20px;
 
+    background-color: var(--container-background-color);
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.6), 0 4px 8px 3px rgba(0,0,0,0.302);
-    border: 1px solid var(--element-contrast-color);
+    border: 1px solid var(--element-border-color);
     padding: 60px 5px 5px 5px;
     box-sizing: border-box;
 
     position: relative;
 
+}
+#todo-container{
+    /*background-color: green;*/
+    height: 100%;
+    overflow-y: auto;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -49,7 +67,7 @@ ul{
 
 
     border-radius: 20px;
-    border: 1px solid  var(--element-contrast-color);
+    border: 1px solid  var(--element-border-color);
     list-style: none;
 
     display: flex;
@@ -64,6 +82,7 @@ ul{
 
 
 }
+
 /*-------------------------------------------------------------------------*/
 .listItemCheckBoxField{
     min-width: var(--listItem-elements-height);
@@ -130,6 +149,7 @@ ul{
 .listItemTextField:focus + .listItemDeleteButton {
     opacity: 1;
 }
+
 /*-------------------------------------------------------------------------*/
 [draggable] {
     will-change: transform;
@@ -149,6 +169,7 @@ ul{
 .allListItemsWhileDragging *{
     pointer-events: none;
 }
+
 /*-------------------------------------------------------------------------*/
 #add-todo{
     position: absolute;
@@ -166,7 +187,7 @@ ul{
     padding: 5px;
     box-sizing: border-box;
     border-radius: 20px;
-    border: 1px solid  var(--element-contrast-color);
+    border: 1px solid  var(--element-border-color);
 
 }
 #add-todo input[name="add"]{
@@ -212,25 +233,30 @@ ul{
     outline: none;
 }
 
-#todo-container{
-    /*background-color: green;*/
-    height: 100%;
+/*-------------------------------------------------------------------------*/
+#emptyTodo{
+    position: absolute;
+    top:60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
-    overflow-y: auto;
-
+    color: var(--font-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    font-family: sans-serif;
+    opacity: .2;
+    pointer-events: none;
 }
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    box-shadow: inset 0 0 4px lightgreen;
 
-}
-::-webkit-scrollbar {
-     /*display: none;*/
-    width: 10px;
-
-}
-
-
+/*-------------------------------------------------------------------------*/
 .grayscale{
     filter: grayscale(100%);
 }
+.hidden{
+    background-color: darkred;
+    display: none !important;
+}
+/*-------------------------------------------------------------------------*/

@@ -131,7 +131,13 @@
     state = newState;
 
     arrayOfStates.push(state);
+
     removeGrayScaleFromUndoButton();
+
+    if(Object.keys(state).length === 0)
+      showEmptyListElement();
+    else
+      hideEmptyListElement();
 
     renderState(state);
   };
@@ -257,7 +263,17 @@
 
   window.addEventListener("keydown",onKeyDownCallback) ;
   undoElement.addEventListener("click",undoLastStep);
-  
+
+  //////////////////////////////////////EMPTY LIST COMMENT///////////////////////
+  let emptyListElement = document.getElementById("emptyTodo");
+  function hideEmptyListElement() {
+    if(!emptyListElement.classList.contains("hidden"))
+      emptyListElement.classList.add("hidden");
+  }
+  function showEmptyListElement() {
+    if(emptyListElement.classList.contains("hidden"))
+      emptyListElement.classList.remove("hidden");
+  }
   //---------------------------------------------------------------------------------
 
 

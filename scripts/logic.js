@@ -50,7 +50,6 @@ var todoFunctions = {
     if (!todos) return [];
     return todos.filter(todoObj => todoObj.id !== idToDelete);
   },
-
   markTodo: function (todos, idToMark) {
 
     // should leave the input argument todos unchanged (you can use cloneArrayOfObjects)
@@ -77,7 +76,6 @@ var todoFunctions = {
     // return clonedArr;
 
   },
-
   sortTodos: function (todos, sortFunction) {
     // stretch goal! Do this last
     // should leave the input arguement todos unchanged (you can use cloneArrayOfObjects)
@@ -151,10 +149,6 @@ var todoFunctions = {
 };
 
 
-// Why is this if statement necessary?
-// The answer has something to do with needing to run code both in the browser and in Node.js
-// See this article for more details: 
-// http://www.matteoagosti.com/blog/2013/02/24/writing-javascript-modules-for-both-browser-and-node/
 if (typeof module !== 'undefined') {
   module.exports = todoFunctions;
 }
