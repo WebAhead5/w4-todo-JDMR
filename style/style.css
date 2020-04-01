@@ -80,6 +80,7 @@ ul{
 .listItemCheckBoxField:checked + .listItemTextField{
     text-decoration: line-through;
     opacity: 0.4;
+
 }
 
 .listItemDeleteButton{
@@ -95,7 +96,7 @@ ul{
     cursor: pointer;
 
     position: absolute;
-    right: 0;
+    right: 5px;
     opacity: 0;
     transition: opacity .3s;
 
@@ -104,16 +105,23 @@ ul{
     display: block;
     opacity: 1;
 }
+
+
 .listItemTextField{
     width: 100%;
     height: var(--listItem-elements-height);
-    padding: 0 calc(var(--listItem-elements-height) - 5px) 0 5px;
+    padding: 0 35px 0 5px;
 
     color: var(--font-color);
     background-color: transparent;
     border: 0;
 }
-
+.listItemTextField:focus{
+    outline: none;
+}
+.listItemTextField:focus + .listItemDeleteButton {
+    opacity: 1;
+}
 
 
 [draggable] {
