@@ -20,8 +20,7 @@
     width: var(--listItem-elements-height);
     height: var(--listItem-elements-height);
 }
-
- .listItemDeleteButton{
+.listItemDeleteButton{
      width: var(--listItem-elements-height);;
     height: var(--listItem-elements-height);
     justify-self: flex-end;
@@ -31,4 +30,26 @@
     height: var(--listItem-elements-height);
     padding: 0 5px;
 
+}
+
+
+
+[draggable] {
+    will-change: transform;
+    cursor: move;
+    transition: all 200ms;
+    user-select: none;
+    position: relative;
+}
+.dragged{
+    border-color: black;
+    opacity: 1;
+    width: 300px;
+}
+.draggedOver{
+    border-style: dotted;
+}
+
+.allListItemsWhileDragging *{
+    pointer-events: none;
 }
