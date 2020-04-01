@@ -79,6 +79,7 @@ ul{
 }
 .listItemCheckBoxField:checked + .listItemTextField{
     text-decoration: line-through;
+    opacity: 0.4;
 }
 
 .listItemDeleteButton{
