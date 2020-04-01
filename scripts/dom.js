@@ -12,6 +12,25 @@
     { id: -1, description: 'third todo', done: false },
   ]; // this is our initial todoList
 
+  let arrayOfStates = [state];
+
+  window.onkeydown = (event) => {
+    if (event.keyCode === 90){
+      undoLastStep()
+    }
+
+  };
+
+  var disableUndo = false;
+
+  let undoLastStep = function(){
+      if(arrayOfStates.length === 1 || disableUndo) return;
+      
+      arrayOfStates.pop()
+      state = arrayOfStates[arrayOfStates.length - 1]
+      renderState(state)
+  }
+
   // This function takes a todo, it returns the DOM node representing that todo
   let createTodoNode = function (todo) {
 
@@ -48,19 +67,22 @@
       let newState = todoFunctions.editTask(state, todo.id, obj => {
         obj.description = descTextField.value;
       });
+      disableUndo = false;
       update(newState);
     }
 
 
-    descTextField.onkeydown = (event) => {
 
-      if (event.keyCode == 8 && descTextField.value === "") {
+    descTextField.onkeydown = (event) => {
+      
+      disableUndo = todo.description !== descTextField.value ;
+
+      if (event.keyCode === 8 && descTextField.value === "") {
 
         descTextField.onchange = null;
         var newState = todoFunctions.deleteTodo(state, todo.id);
         update(newState);
-    }
-
+      }
     };
     todoNode.appendChild(descTextField);
 
@@ -103,8 +125,10 @@
 
   // you should not need to change this function
   let update = function (newState) {
+    console.log("newState = ", newState)
     state = newState;
-    console.log(state);
+    arrayOfStates.push(state)
+    console.log("jd array now: ", arrayOfStates)
     renderState(state);
   };
 
