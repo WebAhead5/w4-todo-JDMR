@@ -50,6 +50,8 @@
     markedCheckboxField.checked = todo.done;
     markedCheckboxField.onchange = () => {
       let newState = todoFunctions.markTodo(state, todo.id);
+      //sortMe();
+      newState = sortMe(newState);
       update(newState);
     };
 
@@ -119,10 +121,36 @@
       document.querySelector('[name="description"]').value = "";
 
       let newState = todoFunctions.addTodo(state, newTodo)
+      newState = sortMe(newState);
       // hint: todoFunctions.addTodo
       update(newState);
     });
   }
+
+  //////////////////////////////////////SORT /////////////////////////////////////
+  let sortbyCheckedFunc = ( (a,b) =>{
+      if (a.done === false && b.done === true) return -1
+      return 1;
+  })
+
+  // document.getElementById("add-todo").onclick = sortMe
+  
+  function sortMe(state){
+    console.log("state: ", state)
+    return todoFunctions.sortTodos(state, sortbyCheckedFunc);
+    //update(newState);
+
+  }
+
+  // window.onkeydown = ()=>{  
+  //   console.log(event.keyCode)
+  //   if (event.keyCode === 84){
+  //   sortMe()
+  //   }
+  // } 
+
+
+  ////////////////////////////////////SORT above ///////////////////////////////////
 
   // you should not need to change this function
   let update = function (newState) {
