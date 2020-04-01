@@ -74,6 +74,7 @@ ul{
     background-color: transparent;
     border: 1px solid #cacece;
     border-radius: 10px;
+    outline: none;
 }
 .listItemCheckBoxField:checked{
     background: rgba(255, 255, 255, .1)
@@ -101,6 +102,7 @@ ul{
     background-color: unset;
     border: 0;
     cursor: pointer;
+    outline: none;
 
     position: absolute;
     right: 5px;
@@ -122,9 +124,8 @@ ul{
     color: var(--font-color);
     background-color: transparent;
     border: 0;
-}
-.listItemTextField:focus{
     outline: none;
+
 }
 .listItemTextField:focus + .listItemDeleteButton {
     opacity: 1;
@@ -175,6 +176,8 @@ ul{
     background-size: var(--listItem-elements-height);
 
     border: 0;
+    outline: none;
+
     min-width:  var(--listItem-elements-height);
     min-height: var(--listItem-elements-height);
     max-width:  var(--listItem-elements-height);
@@ -185,8 +188,11 @@ ul{
     url("../res/icons/icon-undo.svg")
     no-repeat;
     background-size: var(--listItem-elements-height) ;
+
     margin-left: 10px;
     border: 0;
+    outline: none;
+
     min-width:  var(--listItem-elements-height);
     min-height: var(--listItem-elements-height);
     max-width:  var(--listItem-elements-height);
@@ -222,4 +228,9 @@ ul{
      /*display: none;*/
     width: 10px;
 
+}
+
+
+.grayscale{
+    filter: grayscale(100%);
 }

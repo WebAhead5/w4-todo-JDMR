@@ -17,78 +17,86 @@
   let createTodoNode = function (todo) {
 
 
-    //----------------------------------------------------------------------------
+    //initiate li element--------------------------------------------------------
     let todoNode = document.createElement('li');
+    todoNode.setAttribute("data-task-id", todo.id);
     todoNode.classList.add("listItem");
+    
+    //add drag and drop events---------------------------------------------------
     enableDragAndDrop(todo, todoNode);
-    // you will need to use addEventListener
-    // add classes for css
 
 
     // add markTodo button-------------------------------------------------------
-    let markedCheckboxField = document.createElement("input");
-    markedCheckboxField.type = "checkbox";
-    markedCheckboxField.classList.add("listItemCheckBoxField");
-    markedCheckboxField.checked = todo.done;
-    markedCheckboxField.setAttribute('aria-label',"delete todo item button")
+    function createCheckBoxElement(todo) {
+      let markedCheckboxField = document.createElement("input");
+      markedCheckboxField.type = "checkbox";
+      markedCheckboxField.classList.add("listItemCheckBoxField");
+      markedCheckboxField.checked = todo.done;
+      markedCheckboxField.setAttribute('aria-label', "the task's checkbox"); //for accessibility
 
-    markedCheckboxField.onchange = () => {
-      let newState = todoFunctions.markTodo(state, todo.id);
-      //sortMe();
-      newState = sortMe(newState);
-      update(newState);
-    };
-
-
-    todoNode.appendChild(markedCheckboxField);
-    //todo add onClock behaviour
-
-
-    // add  description-----------------------------------------------
-    let descTextField = document.createElement("input");
-    descTextField.type = "text";
-    descTextField.classList.add("listItemTextField");
-    descTextField.value = todo.description;
-
-    descTextField.setAttribute('aria-label',"todo item description text field")
-
-
-    descTextField.onchange = () => {
-      let newState = todoFunctions.editTask(state, todo.id, obj => {
-        obj.description = descTextField.value;
-      });
-      disableUndo = false;
-      update(newState);
-    }
-
-
-
-    descTextField.onkeydown = (event) => {
-      
-      disableUndo = todo.description !== descTextField.value ;
-
-      if (event.keyCode === 8 && descTextField.value === "") {
-
-        descTextField.onchange = null;
-        var newState = todoFunctions.deleteTodo(state, todo.id);
+      markedCheckboxField.onchange = () => {
+        let newState = todoFunctions.markTodo(state, todo.id);
+        newState = sortMe(newState);
         update(newState);
-      }
-    };
-    todoNode.appendChild(descTextField);
+      };
+
+      return markedCheckboxField;
+    }
+    todoNode.appendChild(createCheckBoxElement(todo));
+
+
+
+    // add  description----------------------------------------------------------
+    function createTextFieldElement(todo) {
+      let descTextField = document.createElement("input");
+      descTextField.type = "text";
+      descTextField.classList.add("listItemTextField");
+      descTextField.value = todo.description;
+      descTextField.setAttribute('aria-label', "the task's description");//for accessibility
+
+
+      descTextField.onchange = () => {
+        let newState = todoFunctions.editTask(state, todo.id, obj => {
+          obj.description = descTextField.value;
+        });
+        disableUndo = false;
+        update(newState);
+      };
+
+
+      descTextField.onkeydown = (event) => {
+        disableUndo = todo.description !== descTextField.value;
+        if (event.keyCode === 8 && descTextField.value === "") {
+          descTextField.onchange = null;
+          let newState = todoFunctions.deleteTodo(state, todo.id);
+          update(newState);
+        }
+
+      };
+
+
+      return descTextField;
+    }
+    todoNode.appendChild(createTextFieldElement(todo));
+
+
 
 
     // this adds the delete button------------------------------------------------
-    let deleteButtonNode = document.createElement('button');
+    function CreateDeleteButton(todo) {
+      let deleteButtonNode = document.createElement('button');
+      deleteButtonNode.setAttribute('aria-label', "delete todo item button")
+      deleteButtonNode.classList.add("listItemDeleteButton");
 
-    deleteButtonNode.addEventListener('click', function (event) {
-      var newState = todoFunctions.deleteTodo(state, todo.id);
-      update(newState);
-    });
 
-    deleteButtonNode.classList.add("listItemDeleteButton");
-    todoNode.appendChild(deleteButtonNode);
+      deleteButtonNode.addEventListener('click', function (event) {
+        let newState = todoFunctions.deleteTodo(state, todo.id);
+        update(newState);
+      });
+      return deleteButtonNode;
+    }
+    todoNode.appendChild(CreateDeleteButton(todo));
 
-    deleteButtonNode.setAttribute('aria-label',"delete todo item button")
 
 
     //----------------------------------------------------------------------------
@@ -118,10 +126,13 @@
 
   // you should not need to change this function
   let update = function (newState) {
-    console.log("newState = ", newState)
+    // console.log("newState = ", newState)
+
     state = newState;
-    arrayOfStates.push(state)
-    console.log("jd array now: ", arrayOfStates)
+
+    arrayOfStates.push(state);
+    removeGrayScaleFromUndoButton();
+
     renderState(state);
   };
 
@@ -137,13 +148,11 @@
     container.replaceChild(todoListNode, container.firstChild);
   };
 
-  if (container) renderState(state);
 
   //---------------------------------------------------------------------------------
   //////////////////////////////////////DRAG /////////////////////////////////////
   function enableDragAndDrop(todo, todoNode) {
     todoNode.draggable = true;
-    todoNode.setAttribute("data-task-id", todo.id);
 
 
     todoNode.ondragstart = (event) => {
@@ -218,19 +227,41 @@
   //////////////////////////////////////UNDO /////////////////////////////////////
   let arrayOfStates = [state];
   var disableUndo = false;
-  let undoLastStep = function(){
-    if(arrayOfStates.length === 1 || disableUndo) return;
+  let undoElement= document.querySelector('input[name="undo"]');
+
+  function undoLastStep(){
+    if(arrayOfStates.length === 1 || disableUndo)
+      return;
+
+    if(arrayOfStates.length === 2)
+      AddGrayScaleToUndoButton();
+
 
     arrayOfStates.pop();
+
     state = arrayOfStates[arrayOfStates.length - 1];
     renderState(state)
   }
-  window.onkeydown = (event) => {
+  function AddGrayScaleToUndoButton() {
+    if(!undoElement.classList.contains("grayscale"))
+      undoElement.classList.add("grayscale");
+  }
+  function removeGrayScaleFromUndoButton() {
+    if(undoElement.classList.contains("grayscale"))
+      undoElement.classList.remove("grayscale");
+  }
+  function onKeyDownCallback(event){
     if (event.keyCode === 90)
       undoLastStep();
   };
-  document.querySelector('input[name="undo"]').addEventListener("click",undoLastStep);
+
+  window.addEventListener("keydown",onKeyDownCallback) ;
+  undoElement.addEventListener("click",undoLastStep);
+  
   //---------------------------------------------------------------------------------
 
+
+
+  if (container) renderState(state);
 })();
 
