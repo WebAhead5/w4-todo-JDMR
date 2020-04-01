@@ -160,6 +160,7 @@ ul{
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     padding: 5px;
     box-sizing: border-box;
@@ -167,18 +168,28 @@ ul{
     border: 1px solid  var(--element-contrast-color);
 
 }
-#add-todo input[type="submit"]{
+#add-todo input[name="add"]{
     background:
     url("../res/icons/icon-plus.svg")
-    no-repeat
-    calc((var(--listItem-elements-height) - 30px) / 2);
-    background-size: 30px 30px;
+    no-repeat;
+    background-size: var(--listItem-elements-height);
 
     border: 0;
-    content: "";
-    min-width: var(--listItem-elements-height);
+    min-width:  var(--listItem-elements-height);
     min-height: var(--listItem-elements-height);
-    max-width: var(--listItem-elements-height);
+    max-width:  var(--listItem-elements-height);
+    max-height: var(--listItem-elements-height);
+}
+#add-todo input[name="undo"]{
+    background:
+    url("../res/icons/icon-undo.svg")
+    no-repeat;
+    background-size: var(--listItem-elements-height) ;
+    margin-left: 10px;
+    border: 0;
+    min-width:  var(--listItem-elements-height);
+    min-height: var(--listItem-elements-height);
+    max-width:  var(--listItem-elements-height);
     max-height: var(--listItem-elements-height);
 }
 #add-todo input[type="text"]{

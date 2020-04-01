@@ -13,21 +13,6 @@
   ]; // this is our initial todoList
 
 
-  let arrayOfStates = [state];
-  var disableUndo = false;
-  let undoLastStep = function(){
-      if(arrayOfStates.length === 1 || disableUndo) return;
-      
-      arrayOfStates.pop()
-      state = arrayOfStates[arrayOfStates.length - 1]
-      renderState(state)
-  }
-  window.onkeydown = (event) => {
-    if (event.keyCode === 90)
-      undoLastStep();
-  };
-
-
   // This function takes a todo, it returns the DOM node representing that todo
   let createTodoNode = function (todo) {
 
@@ -103,7 +88,6 @@
     return todoNode;
   };
 
-
   // bind create todo form
   if (addTodoForm) {
     addTodoForm.addEventListener('submit', function (event) {
@@ -123,31 +107,6 @@
       update(newState);
     });
   }
-
-  //////////////////////////////////////SORT /////////////////////////////////////
-  let sortbyCheckedFunc = ( (a,b) =>{
-      if (a.done === false && b.done === true) return -1
-      return 1;
-  })
-
-  // document.getElementById("add-todo").onclick = sortMe
-  
-  function sortMe(state){
-    console.log("state: ", state)
-    return todoFunctions.sortTodos(state, sortbyCheckedFunc);
-    //update(newState);
-
-  }
-
-  // window.onkeydown = ()=>{  
-  //   console.log(event.keyCode)
-  //   if (event.keyCode === 84){
-  //   sortMe()
-  //   }
-  // } 
-
-
-  ////////////////////////////////////SORT above ///////////////////////////////////
 
   // you should not need to change this function
   let update = function (newState) {
@@ -172,7 +131,8 @@
 
   if (container) renderState(state);
 
-  //------------------------------------------------------
+  //---------------------------------------------------------------------------------
+  //////////////////////////////////////DRAG /////////////////////////////////////
   function enableDragAndDrop(todo, todoNode) {
     todoNode.draggable = true;
     todoNode.setAttribute("data-task-id", todo.id);
@@ -234,7 +194,35 @@
     };
 
   }
-  //------------------------------------------------------
+
+  //////////////////////////////////////SORT /////////////////////////////////////
+  let sortbyCheckedFunc = ( (a,b) =>{
+    if (a.done === false && b.done === true) return -1
+    return 1;
+  })
+  function sortMe(state){
+    console.log("state: ", state)
+    return todoFunctions.sortTodos(state, sortbyCheckedFunc);
+    //update(newState);
+
+  }
+
+  //////////////////////////////////////UNDO /////////////////////////////////////
+  let arrayOfStates = [state];
+  var disableUndo = false;
+  let undoLastStep = function(){
+    if(arrayOfStates.length === 1 || disableUndo) return;
+
+    arrayOfStates.pop();
+    state = arrayOfStates[arrayOfStates.length - 1];
+    renderState(state)
+  }
+  window.onkeydown = (event) => {
+    if (event.keyCode === 90)
+      undoLastStep();
+  };
+  document.querySelector('input[name="undo"]').addEventListener("click",undoLastStep);
+  //---------------------------------------------------------------------------------
 
 })();
 
