@@ -31,20 +31,22 @@ body{
 
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.6), 0 4px 8px 3px rgba(0,0,0,0.302);
     border: 1px solid var(--element-contrast-color);
-    padding: 40px 5px 5px 5px;
+    padding: 60px 5px 5px 5px;
     box-sizing: border-box;
 
     position: relative;
-    overflow-y: auto;
 
 }
+
+/*-------------------------------------------------------------------------*/
 ul{
     width: 100%;
     height: 100%;
     padding: 0;
-
+    margin: 0;
 }
 .listItem {
+
 
     border-radius: 20px;
     border: 1px solid  var(--element-contrast-color);
@@ -55,15 +57,13 @@ ul{
     justify-content: space-between ;
     position: relative;
 
-    width: 100%;
-    height: 100%;
+    width: 99%;
     margin:  5px 0;
     padding: 5px;
     box-sizing: border-box;
 
 
 }
-
 /*-------------------------------------------------------------------------*/
 .listItemCheckBoxField{
     min-width: var(--listItem-elements-height);
@@ -189,8 +189,26 @@ ul{
     color: var(--font-color);
     padding: 0 10px;
     box-sizing: content-box;
-    place
+
 }
 #add-todo input[type="text"]:focus{
     outline: none;
+}
+
+#todo-container{
+    /*background-color: green;*/
+    height: 100%;
+
+    overflow-y: auto;
+
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 4px lightgreen;
+
+}
+::-webkit-scrollbar {
+     /*display: none;*/
+    width: 10px;
+
 }
