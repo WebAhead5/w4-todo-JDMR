@@ -132,8 +132,6 @@
 
     arrayOfStates.push(state);
 
-
-
     renderState(state);
   };
 
@@ -142,6 +140,7 @@
 
     updateEmptyStateElement(state);
     updateUndoButton();
+    updateClearCheckedButton(state);
 
     var todoListNode = document.createElement('ul');
 
@@ -260,7 +259,7 @@
   window.addEventListener("keydown",onKeyDownCallback) ;
 
   //undo button-----------------------------------------------------------
-  let undoElement= document.querySelector('input[name="undo"]');
+  let undoElement = document.querySelector('input[name="undo"]');
   function AddGrayScaleToUndoButton() {
     if(!undoElement.classList.contains("grayscale"))
       undoElement.classList.add("grayscale");
@@ -291,8 +290,41 @@
       showEmptyListElement();
     else hideEmptyListElement();
   }
-  //---------------------------------------------------------------------------------
 
+  //////////////////////////////////////CLEAR CHECKED/////////////////////////////
+  let clearCheckedButton = document.querySelector('input[name="clearChecked"]');
+  function disableClearChecked() {
+    clearCheckedButton.setAttribute("disabled","true");
+
+    if(!clearCheckedButton.classList.contains("grayscale"))
+      clearCheckedButton.classList.add("grayscale");
+  }
+  function EnableClearChecked() {
+
+    clearCheckedButton.removeAttribute("disabled");
+
+    if(clearCheckedButton.classList.contains("grayscale"))
+      clearCheckedButton.classList.remove("grayscale");
+  }
+  function updateClearCheckedButton(state) {
+    if(state.some(task=> task.done))
+      EnableClearChecked();
+    else disableClearChecked();
+  }
+  function OnClearDoneCallback(){
+
+    let newState = state ;
+    state.map(task=> {
+      if(task.done)
+        newState= todoFunctions.deleteTodo(newState,task.id) ;
+    })
+    update(newState);
+  }
+
+  clearCheckedButton.addEventListener("click", OnClearDoneCallback);
+
+  //---------------------------------------------------------------------------------
   if (container) renderState(state);
+
 })();
 

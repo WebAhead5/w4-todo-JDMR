@@ -210,7 +210,7 @@ ul{
     no-repeat;
     background-size: var(--listItem-elements-height) ;
 
-    margin-left: 10px;
+    margin-left: 15px;
     border: 0;
     outline: none;
 
@@ -219,6 +219,27 @@ ul{
     max-width:  var(--listItem-elements-height);
     max-height: var(--listItem-elements-height);
 }
+#add-todo input[name="clearChecked"] {
+    background-color: #a36500;
+    color: var(--font-color);
+    border-radius: 20px;
+    text-transform: capitalize;
+
+    margin-left: 15px;
+    border: 0;
+    outline: none;
+
+
+    min-width:  100px;
+    min-height: var(--listItem-elements-height);
+    max-width:  100px;
+    max-height: var(--listItem-elements-height);
+
+}
+#add-todo input[name="clearChecked"]:disabled {
+    opacity: .5;
+}
+
 #add-todo input[type="text"]{
     width: 100%;
     background-color: transparent;
