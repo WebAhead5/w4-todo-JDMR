@@ -115,6 +115,16 @@ var todoFunctions = {
   swapTasks: function (todos, id1, id2) {
     if (!todos)
       return [];
+    
+    if (typeof todos[0].id !== "number") return "expecting object but got other. Can't swapTasks";
+
+    if(typeof id1 !== "number" || typeof id2 !== "number") return "expecting integers but got other. Can't swapTasks"
+
+    if(!todos.some(x=> x.id === id1) || !todos.some(x=> x.id === id2)) {
+      console.log("one of the ids provided does not exist in state")
+      return todos
+    }
+
 
     let newArr = todoFunctions.cloneArrayOfObjects(todos);
     let index1 = todos.findIndex(t => t.id === id1);
