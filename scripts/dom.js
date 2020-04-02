@@ -1,15 +1,13 @@
-// part 2 linking it all together
-// The function here is called an iife,
-// it keeps everything inside hidden from the rest of our application
+
+
 (function () {
-  // This is the dom node where we will keep our todo
+
   var container = document.getElementById('todo-container');
   var addTodoForm = document.getElementById('add-todo');
 
   let state = [
      { id: -3, description: 'drag me down there ↓↓↓↓↓', done: false },
      { id: -2, description: 'press ctrl + z', done: false },
-    // { id: -1, description: 'third todo', done: false },
   ]; // this is our initial todoList
 
 
@@ -109,9 +107,7 @@
   // bind create todo form
   if (addTodoForm) {
     addTodoForm.addEventListener('submit', function (event) {
-      // https://developer.mozilla.org/en-US/docs/Web/Events/submit
-      // what does event.preventDefault do?
-      // what is inside event.target?
+
       event.preventDefault();
       let newTodo = {};
       newTodo.id = todoFunctions.generateId();
@@ -121,14 +117,12 @@
 
       let newState = todoFunctions.unshiftTodo(state, newTodo);
 
-      // hint: todoFunctions.addTodo
       update(newState);
     });
   }
 
   // you should not need to change this function
   let update = function (newState) {
-    // console.log("newState = ", newState)
 
     state = newState;
 
@@ -149,7 +143,6 @@
       todoListNode.appendChild(createTodoNode(todo));
     });
 
-    // you may want to add a class for css
     container.replaceChild(todoListNode, container.firstChild);
   };
 
@@ -163,7 +156,7 @@
     todoNode.ondragstart = (event) => {
       //store the dragged element id
       container.setAttribute("data-draggedItem", todo.id);
-      console.log("drag start");
+
 
       //add a class to all the list items - to apply "pointer-events: none" for all the children
       Array.from(document.querySelectorAll(".listItem"))
@@ -195,7 +188,6 @@
     todoNode.ondrop = (event) => {
       //remove the "draggedOver" class from dropped on element
       event.target.classList.remove("draggedOver");
-      console.log("dropped");
 
 
       let id1 = parseInt(container.getAttribute("data-draggedItem"));
@@ -208,7 +200,6 @@
 
     todoNode.ondragend = (event) => {
       event.preventDefault();
-      console.log("drag end");
 
       //remove the stored dragged element id
       container.removeAttribute("data-draggedItem");
@@ -221,13 +212,9 @@
   }
 
   //////////////////////////////////////SORT /////////////////////////////////////
-  let sortbyCheckedFunc = ( (a,b) =>{
-    if (a.done === false && b.done === true) return -1;
-    return 1;
-  });
+
   function sortMe(state){
-    console.log("state: ", state);
-    return todoFunctions.sortTodos(state, sortbyCheckedFunc);
+    return todoFunctions.sortTodos(state, todoFunctions.sortingOptions.sortByChecked);
     //update(newState);
 
   }
