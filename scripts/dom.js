@@ -7,8 +7,8 @@
   var addTodoForm = document.getElementById('add-todo');
 
   let state = [
-    // { id: -3, description: 'first todo', done: false },
-    // { id: -2, description: 'second todo', done: false },
+     { id: -3, description: 'drag me down there ↓↓↓↓↓', done: false },
+     { id: -2, description: 'press ctrl + z', done: false },
     // { id: -1, description: 'third todo', done: false },
   ]; // this is our initial todoList
 
@@ -31,6 +31,7 @@
       let markedCheckboxField = document.createElement("input");
       markedCheckboxField.type = "checkbox";
       markedCheckboxField.classList.add("listItemCheckBoxField");
+      markedCheckboxField.classList.add("icon");
       markedCheckboxField.checked = todo.done;
       markedCheckboxField.setAttribute('aria-label', "the task's checkbox"); //for accessibility
 
@@ -87,6 +88,7 @@
       let deleteButtonNode = document.createElement('button');
       deleteButtonNode.setAttribute('aria-label', "delete todo item button")
       deleteButtonNode.classList.add("listItemDeleteButton");
+      deleteButtonNode.classList.add("icon");
 
 
       deleteButtonNode.addEventListener('click', function (event) {
@@ -140,7 +142,6 @@
 
     updateEmptyStateElement(state);
     updateUndoButton();
-    updateClearCheckedButton(state);
 
     var todoListNode = document.createElement('ul');
 
@@ -292,36 +293,31 @@
   }
 
   //////////////////////////////////////CLEAR CHECKED/////////////////////////////
-  let clearCheckedButton = document.querySelector('input[name="clearChecked"]');
-  function disableClearChecked() {
-    clearCheckedButton.setAttribute("disabled","true");
+   let settings = document.getElementById("settings");
+  settings.onchange = ()=>{
+      switch (settings.value) {
+        case "clearChecked":
+          OnClearDonSelected();
+          break;
 
-    if(!clearCheckedButton.classList.contains("grayscale"))
-      clearCheckedButton.classList.add("grayscale");
+        default:
+          return
+      }
+
+    settings.value = "default";
   }
-  function EnableClearChecked() {
 
-    clearCheckedButton.removeAttribute("disabled");
-
-    if(clearCheckedButton.classList.contains("grayscale"))
-      clearCheckedButton.classList.remove("grayscale");
-  }
-  function updateClearCheckedButton(state) {
-    if(state.some(task=> task.done))
-      EnableClearChecked();
-    else disableClearChecked();
-  }
-  function OnClearDoneCallback(){
-
-    let newState = state ;
-    state.map(task=> {
+  function OnClearDonSelected(){
+    if(!state.some(task=>task.done))
+      return;
+    let newState = state;
+    state.forEach(task=> {
       if(task.done)
-        newState= todoFunctions.deleteTodo(newState,task.id) ;
+        newState = todoFunctions.deleteTodo(newState,task.id);
     })
     update(newState);
   }
 
-  clearCheckedButton.addEventListener("click", OnClearDoneCallback);
 
   //---------------------------------------------------------------------------------
   if (container) renderState(state);

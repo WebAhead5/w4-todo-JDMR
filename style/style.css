@@ -85,16 +85,13 @@ ul{
 
 /*-------------------------------------------------------------------------*/
 .listItemCheckBoxField{
-    min-width: var(--listItem-elements-height);
-    min-height: var(--listItem-elements-height);
-    max-width: var(--listItem-elements-height);
-    max-height: var(--listItem-elements-height);
+
     -webkit-appearance: none;
     background-color: transparent;
-    border: 1px solid #cacece;
+    border: 1px solid #cacece !important;
     border-radius: 10px;
-    outline: none;
 }
+
 .listItemCheckBoxField:checked{
     background: rgba(255, 255, 255, .1)
     url("../res/icons/icon-tick.svg")
@@ -110,18 +107,11 @@ ul{
 }
 
 .listItemDeleteButton{
-    min-width: var(--listItem-elements-height);
-    min-height: var(--listItem-elements-height);
-    max-width: var(--listItem-elements-height);
-    max-height: var(--listItem-elements-height);
 
     margin-left: 5px;
 
     background-image: url("../res/icons/icon-bin.svg");
     background-color: unset;
-    border: 0;
-    cursor: pointer;
-    outline: none;
 
     position: absolute;
     right: 5px;
@@ -219,27 +209,6 @@ ul{
     max-width:  var(--listItem-elements-height);
     max-height: var(--listItem-elements-height);
 }
-#add-todo input[name="clearChecked"] {
-    background-color: #a36500;
-    color: var(--font-color);
-    border-radius: 20px;
-    text-transform: capitalize;
-
-    margin-left: 15px;
-    border: 0;
-    outline: none;
-
-
-    min-width:  100px;
-    min-height: var(--listItem-elements-height);
-    max-width:  100px;
-    max-height: var(--listItem-elements-height);
-
-}
-#add-todo input[name="clearChecked"]:disabled {
-    opacity: .5;
-}
-
 #add-todo input[type="text"]{
     width: 100%;
     background-color: transparent;
@@ -253,6 +222,21 @@ ul{
 #add-todo input[type="text"]:focus{
     outline: none;
 }
+
+
+#settings {
+    background: url("../res/icons/icon-settings.svg") no-repeat;
+    background-size: var(--listItem-elements-height);
+    content: "";
+
+    margin-left: 15px;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+}
+
 
 /*-------------------------------------------------------------------------*/
 #emptyTodo{
@@ -279,5 +263,15 @@ ul{
 .hidden{
     background-color: darkred;
     display: none !important;
+}
+
+.icon{
+    outline: none;
+    border: 0;
+    min-width:  var(--listItem-elements-height);
+    min-height: var(--listItem-elements-height);
+    max-width:  var(--listItem-elements-height);
+    max-height: var(--listItem-elements-height);
+    cursor: pointer;
 }
 /*-------------------------------------------------------------------------*/
