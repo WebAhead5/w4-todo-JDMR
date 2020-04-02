@@ -7,9 +7,9 @@
   var addTodoForm = document.getElementById('add-todo');
 
   let state = [
-    { id: -3, description: 'first todo', done: false },
-    { id: -2, description: 'second todo', done: false },
-    { id: -1, description: 'third todo', done: false },
+    // { id: -3, description: 'first todo', done: false },
+    // { id: -2, description: 'second todo', done: false },
+    // { id: -1, description: 'third todo', done: false },
   ]; // this is our initial todoList
 
 
@@ -132,18 +132,17 @@
 
     arrayOfStates.push(state);
 
-    removeGrayScaleFromUndoButton();
 
-    if(Object.keys(state).length === 0)
-      showEmptyListElement();
-    else
-      hideEmptyListElement();
 
     renderState(state);
   };
 
   // you do not need to change this function
   let renderState = function (state) {
+
+    updateEmptyStateElement(state);
+    updateUndoButton();
+
     var todoListNode = document.createElement('ul');
 
     state.forEach(function (todo) {
@@ -236,21 +235,32 @@
   //////////////////////////////////////UNDO /////////////////////////////////////
   let arrayOfStates = [state];
   var disableUndo = false;
-  let undoElement= document.querySelector('input[name="undo"]');
 
   function undoLastStep(){
     if(arrayOfStates.length === 1 || disableUndo)
       return;
 
-    if(arrayOfStates.length === 2)
-      AddGrayScaleToUndoButton();
-
-
+    //remove last state
     arrayOfStates.pop();
 
+
+    //load state
     state = arrayOfStates[arrayOfStates.length - 1];
+
+    updateEmptyStateElement(state);
+
+
     renderState(state)
   }
+  function onKeyDownCallback(event){
+    if (event.keyCode === 90)
+      undoLastStep();
+  };
+
+  window.addEventListener("keydown",onKeyDownCallback) ;
+
+  //undo button-----------------------------------------------------------
+  let undoElement= document.querySelector('input[name="undo"]');
   function AddGrayScaleToUndoButton() {
     if(!undoElement.classList.contains("grayscale"))
       undoElement.classList.add("grayscale");
@@ -259,13 +269,12 @@
     if(undoElement.classList.contains("grayscale"))
       undoElement.classList.remove("grayscale");
   }
-  function onKeyDownCallback(event){
-    if (event.keyCode === 90)
-      undoLastStep();
-  };
-
-  window.addEventListener("keydown",onKeyDownCallback) ;
   undoElement.addEventListener("click",undoLastStep);
+  function updateUndoButton(){
+    if(arrayOfStates.length === 1)
+      AddGrayScaleToUndoButton();
+    else removeGrayScaleFromUndoButton()
+  }
 
   //////////////////////////////////////EMPTY LIST COMMENT///////////////////////
   let emptyListElement = document.getElementById("emptyTodo");
@@ -276,6 +285,11 @@
   function showEmptyListElement() {
     if(emptyListElement.classList.contains("hidden"))
       emptyListElement.classList.remove("hidden");
+  }
+  function updateEmptyStateElement(state) {
+    if(state.length === 0)
+      showEmptyListElement();
+    else hideEmptyListElement();
   }
   //---------------------------------------------------------------------------------
 
