@@ -48,6 +48,7 @@ var todoFunctions = {
     return todoFunctions.cloneArrayOfObjects(todos).map((task) => {
         if(task.id === idToMark)
           task.done = !task.done;
+        return task;
     });
 
 
