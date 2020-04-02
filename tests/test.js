@@ -22,13 +22,6 @@ function getTasks(){
 }
 
 
-
-var state = [
-  { id: -3, description: 'first todo' },
-  { id: -2, description: 'second todo' },
-  { id: -1, description: 'third todo' },
-];
-
 test('Example test', function(t) {
   t.pass();
   t.end();
@@ -215,39 +208,69 @@ test('sort todo list by id',function(t){
   let {task0,task1} = getTasks();
 
   let before = [task1, task0];
- let after = [task0, task1];
+  let passedBefore=before.map(x=>x);
+ let expected = [task0, task1];
 
  let sortFunc = (a,b)=> a.id - b.id;
- let actual = logic.sortTodos(before,sortFunc);
+ let actual = logic.sortTodos(passedBefore,sortFunc);
 
-  t.deepEqual(before[0],task1);
-  t.deepEqual(before[1],task0);
 
-  t.deepEqual(after[0],actual[0]);
-  t.deepEqual(after[1],actual[1]);
+  t.deepEqual(expected,actual, "expected equals after");
+  t.deepEqual(before,passedBefore,"the original array wasn't modified");
 
 
   t.end();
 });
 test('sort todo list by description',function(t){
+
+
   let {task0,task1} = getTasks();
 
   let before = [task1, task0];
-  let after = [task0, task1];
+  let passedBefore=before.map(x=>x);
+  let expected = [task0, task1];
 
   let sortFunc = (a,b)=>
       a.description.toLowerCase() < b.description.toLowerCase() ? -1 : 1 ;
 
-  let actual = logic.sortTodos(before,sortFunc);
+  let actual = logic.sortTodos(passedBefore,sortFunc);
 
-  t.deepEqual(before[0],task1);
-  t.deepEqual(before[1],task0);
+  t.deepEqual(expected,actual, "expected equals after");
+  t.deepEqual(before,passedBefore,"the original array wasn't modified");
 
-  t.deepEqual(after[0],actual[0]);
-  t.deepEqual(after[1],actual[1]);
+  t.end();
+
+});
+test('sort NULL-todo list',function(t){
+
+
+  let sortFunc = (a,b)=>
+      a.description.toLowerCase() < b.description.toLowerCase() ? -1 : 1 ;
+
+  let expected = [];
+  let actual = logic.sortTodos([],sortFunc);
+
+  t.deepEqual(expected,actual, "expected equals after");
 
   t.end();
 });
+test('sort todo list by NULL',function(t){
+  let {task0,task1} = getTasks();
+
+  let before = [task1, task0];
+  let passedBefore= before.map(x=>x);
+  let expected = [task1, task0];
+
+  let sortFunc;
+
+  let actual = logic.sortTodos(passedBefore,sortFunc);
+
+  t.deepEqual(expected,actual, "expected equals after");
+  t.deepEqual(before,passedBefore,"the original array wasn't modified");
+
+  t.end();
+});
+
 
 //////////////////////////////////////////////////SWAP////////////////////////////////////
 
@@ -268,6 +291,8 @@ test('What if the state is not an array of objects?', function(t) {
 })
 
 test('What if integers are not provided as arguments 2 and 3?', function(t) {
+  let {task0,task1,task3} = getTasks();
+  let state = [task0,task1,task3];
 
   let result = logic.swapTasks(state, "string1", "string2")
   let errorMessage = "expecting integers but got other. Can't swapTasks"
@@ -277,6 +302,9 @@ test('What if integers are not provided as arguments 2 and 3?', function(t) {
 })
 
 test('Swap item[0] with item[1]', function(t) {
+
+  let {task0,task1,task3} = getTasks();
+  let state = [task0,task1,task3];
 
   let result = logic.swapTasks(state, -3, -2)
   console.log(result)
@@ -288,6 +316,8 @@ test('Swap item[0] with item[1]', function(t) {
 test('Swap an item that does not exist', function(t) {
   let result;
   let errorMessage;
+  let state = [...getTasks()];
+
 
     result = logic.swapTasks(state, -3, -4)
     errorMessage = "one of the ids provided does not exist in state";
@@ -311,32 +341,3 @@ test('Swap an item that does not exist', function(t) {
 
 
 
-
-// test('sort NULL todo list',function(t){
-//   let before;
-//   let after = [];
-
-//   let sortFunc = (a,b)=> a.id - b.id;
-
-//   let actual = logic.sortTodos(before,sortFunc);
-
-//   t.looseEqual(before,null);
-//   t.deepEqual(actual.length,after.length);
-
-//   t.end();
-// });
-// test('sort todo list by NULL',function(t){
-//   let before = [task0, task1];
-//   let after = [task0, task1];
-
-//   let sortFunc = null;
-//   let actual = logic.sortTodos(before,sortFunc);
-
-//   t.deepEqual(before[0],task1);
-//   t.deepEqual(before[1],task0);
-
-//   t.deepEqual(after[0],actual[0]);
-//   t.deepEqual(after[1],actual[1]);
-
-//   t.end();
-// });
