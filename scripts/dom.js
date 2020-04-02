@@ -109,9 +109,7 @@
   // bind create todo form
   if (addTodoForm) {
     addTodoForm.addEventListener('submit', function (event) {
-      // https://developer.mozilla.org/en-US/docs/Web/Events/submit
-      // what does event.preventDefault do?
-      // what is inside event.target?
+
       event.preventDefault();
       let newTodo = {};
       newTodo.id = todoFunctions.generateId();
@@ -121,14 +119,12 @@
 
       let newState = todoFunctions.unshiftTodo(state, newTodo);
 
-      // hint: todoFunctions.addTodo
       update(newState);
     });
   }
 
   // you should not need to change this function
   let update = function (newState) {
-    // console.log("newState = ", newState)
 
     state = newState;
 
@@ -149,7 +145,6 @@
       todoListNode.appendChild(createTodoNode(todo));
     });
 
-    // you may want to add a class for css
     container.replaceChild(todoListNode, container.firstChild);
   };
 
