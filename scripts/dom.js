@@ -7,8 +7,8 @@
   var addTodoForm = document.getElementById('add-todo');
 
   let state = [
-    // { id: -3, description: 'first todo', done: false },
-    // { id: -2, description: 'second todo', done: false },
+     { id: -3, description: 'drag me down there ↓↓↓↓↓', done: false },
+     { id: -2, description: 'press ctrl + z', done: false },
     // { id: -1, description: 'third todo', done: false },
   ]; // this is our initial todoList
 
