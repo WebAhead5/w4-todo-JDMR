@@ -23,6 +23,11 @@ function getTasks(){
 
 
 
+var state = [
+  { id: -3, description: 'first todo' },
+  { id: -2, description: 'second todo' },
+  { id: -1, description: 'third todo' },
+];
 
 test('Example test', function(t) {
   t.pass();
@@ -243,6 +248,70 @@ test('sort todo list by description',function(t){
 
   t.end();
 });
+
+//////////////////////////////////////////////////SWAP////////////////////////////////////
+
+
+test('Does swap function exist?', function(t) {
+
+  t.deepEqual('function',typeof logic.swapTasks,"Does the swap function exist?");
+  t.end();
+})
+
+test('What if the state is not an array of objects?', function(t) {
+
+  let result = logic.swapTasks("here's a string", 1, 2)
+  let errorMessage = "expecting object but got other. Can't swapTasks"
+  
+  t.deepEqual(errorMessage,result,'What if the state is not an array of objects?');
+  t.end();
+})
+
+test('What if integers are not provided as arguments 2 and 3?', function(t) {
+
+  let result = logic.swapTasks(state, "string1", "string2")
+  let errorMessage = "expecting integers but got other. Can't swapTasks"
+  
+  t.deepEqual(errorMessage,result,'What if integers are not provided as arguments 2 and 3?');
+  t.end();
+})
+
+test('Swap item[0] with item[1]', function(t) {
+
+  let result = logic.swapTasks(state, -3, -2)
+  console.log(result)
+
+  t.deepEqual(state[0],result[1],'Swap item[0] with item[1]');
+  t.end();
+})
+
+test('Swap an item that does not exist', function(t) {
+  let result;
+  let errorMessage;
+
+    result = logic.swapTasks(state, -3, -4)
+    errorMessage = "one of the ids provided does not exist in state";
+
+    t.deepEqual(state,result,'Swap an item that does not exist');
+    t.end();
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // test('sort NULL todo list',function(t){
 //   let before;
 //   let after = [];
