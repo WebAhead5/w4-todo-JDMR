@@ -116,6 +116,13 @@ var todoFunctions = {
 
   },
 
+  sortingOptions:{
+    sortByChecked:  (a,b) =>{
+      if (a.done === false && b.done === true)
+        return -1;
+      return 1;
+    }
+  }
 };
 
 

@@ -212,12 +212,9 @@
   }
 
   //////////////////////////////////////SORT /////////////////////////////////////
-  let sortbyCheckedFunc = ( (a,b) =>{
-    if (a.done === false && b.done === true) return -1;
-    return 1;
-  });
+
   function sortMe(state){
-    return todoFunctions.sortTodos(state, sortbyCheckedFunc);
+    return todoFunctions.sortTodos(state, todoFunctions.sortingOptions.sortByChecked);
     //update(newState);
 
   }
