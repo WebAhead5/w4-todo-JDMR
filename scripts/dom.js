@@ -156,7 +156,7 @@
     todoNode.ondragstart = (event) => {
       //store the dragged element id
       container.setAttribute("data-draggedItem", todo.id);
-      console.log("drag start");
+
 
       //add a class to all the list items - to apply "pointer-events: none" for all the children
       Array.from(document.querySelectorAll(".listItem"))
@@ -188,7 +188,6 @@
     todoNode.ondrop = (event) => {
       //remove the "draggedOver" class from dropped on element
       event.target.classList.remove("draggedOver");
-      console.log("dropped");
 
 
       let id1 = parseInt(container.getAttribute("data-draggedItem"));
@@ -201,7 +200,6 @@
 
     todoNode.ondragend = (event) => {
       event.preventDefault();
-      console.log("drag end");
 
       //remove the stored dragged element id
       container.removeAttribute("data-draggedItem");
@@ -219,7 +217,6 @@
     return 1;
   });
   function sortMe(state){
-    console.log("state: ", state);
     return todoFunctions.sortTodos(state, sortbyCheckedFunc);
     //update(newState);
 
