@@ -280,7 +280,6 @@ test('Does swap function exist?', function(t) {
   t.deepEqual('function',typeof logic.swapTasks,"Does the swap function exist?");
   t.end();
 })
-
 test('What if the state is not an array of objects?', function(t) {
 
   let result = logic.swapTasks("here's a string", 1, 2)
@@ -289,7 +288,6 @@ test('What if the state is not an array of objects?', function(t) {
   t.deepEqual(errorMessage,result,'What if the state is not an array of objects?');
   t.end();
 })
-
 test('What if integers are not provided as arguments 2 and 3?', function(t) {
   let {task0,task1,task3} = getTasks();
   let state = [task0,task1,task3];
@@ -300,7 +298,6 @@ test('What if integers are not provided as arguments 2 and 3?', function(t) {
   t.deepEqual(errorMessage,result,'What if integers are not provided as arguments 2 and 3?');
   t.end();
 })
-
 test('Swap item[0] with item[1]', function(t) {
 
   let {task0,task1,task3} = getTasks();
@@ -312,7 +309,6 @@ test('Swap item[0] with item[1]', function(t) {
   t.deepEqual(state[0],result[1],'Swap item[0] with item[1]');
   t.end();
 })
-
 test('Swap an item that does not exist', function(t) {
   let result;
   let errorMessage;
