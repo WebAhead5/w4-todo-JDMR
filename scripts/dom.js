@@ -1,15 +1,13 @@
-// part 2 linking it all together
-// The function here is called an iife,
-// it keeps everything inside hidden from the rest of our application
+
+
 (function () {
-  // This is the dom node where we will keep our todo
+
   var container = document.getElementById('todo-container');
   var addTodoForm = document.getElementById('add-todo');
 
   let state = [
      { id: -3, description: 'drag me down there ↓↓↓↓↓', done: false },
      { id: -2, description: 'press ctrl + z', done: false },
-    // { id: -1, description: 'third todo', done: false },
   ]; // this is our initial todoList
 
 
