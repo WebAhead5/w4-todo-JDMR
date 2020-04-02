@@ -179,10 +179,10 @@
 
       //add the class "over" to the elements underneath the dragged item
       with (event.target)
-      if (container.hasAttribute("data-draggedItem") && hasAttribute("data-task-id"))
-        if (container.getAttribute("data-draggedItem") !== getAttribute("data-task-id"))
-          if (!classList.contains("draggedOver"))
-            classList.add("draggedOver")
+        if (container.hasAttribute("data-draggedItem") && hasAttribute("data-task-id"))
+          if (container.getAttribute("data-draggedItem") !== getAttribute("data-task-id"))
+            if (!classList.contains("draggedOver"))
+              classList.add("draggedOver")
     };
 
     todoNode.ondragleave = (event) => {
@@ -192,6 +192,7 @@
       if (contains("draggedOver"))
         remove("draggedOver")
     };
+
     todoNode.ondrop = (event) => {
       //remove the "draggedOver" class from dropped on element
       event.target.classList.remove("draggedOver");
@@ -201,6 +202,8 @@
       let id1 = parseInt(container.getAttribute("data-draggedItem"));
       let id2 = parseInt(event.target.getAttribute("data-task-id"));
       let newState = todoFunctions.swapTasks(state, id1, id2);
+
+      newState = sortMe(newState);
       update(newState);
     };
 
@@ -220,11 +223,11 @@
 
   //////////////////////////////////////SORT /////////////////////////////////////
   let sortbyCheckedFunc = ( (a,b) =>{
-    if (a.done === false && b.done === true) return -1
+    if (a.done === false && b.done === true) return -1;
     return 1;
-  })
+  });
   function sortMe(state){
-    console.log("state: ", state)
+    console.log("state: ", state);
     return todoFunctions.sortTodos(state, sortbyCheckedFunc);
     //update(newState);
 
@@ -275,8 +278,6 @@
       emptyListElement.classList.remove("hidden");
   }
   //---------------------------------------------------------------------------------
-
-
 
   if (container) renderState(state);
 })();
